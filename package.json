@@ -1,0 +1,13 @@
+{
+  "name": "node-test",
+  "version": "0.0.0",
+  "scripts": {
+  },
+  "devDependencies": {
+  },
+  "license": "Unlicense",
+  "files": [],
+  "dependencies": {
+    "yalps": "^0.4.2"
+  }
+}

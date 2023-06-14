@@ -10,7 +10,7 @@ const sources = {
 
 const dishes = {
   陽春麵: {
-    coin: 38,
+    coin: 27,
     cook: 3 + 20 / 60,
     sell: 5,
     use: {
@@ -26,7 +26,7 @@ const dishes = {
     }
   },
   叉燒: {
-    coin: 30,
+    coin: 45,
     cook: 5,
     sell: 3 + 20 / 60,
     use: {
@@ -34,7 +34,7 @@ const dishes = {
     }
   },
   東坡肉: {
-    coin: 63,
+    coin: 45,
     cook: 10,
     sell: 5,
     use: {
@@ -43,7 +43,7 @@ const dishes = {
     }
   },
   湯圓: {
-    coin: 70,
+    coin: 50,
     cook: 10,
     sell: 5,
     use: {
@@ -52,7 +52,7 @@ const dishes = {
     }
   },
   春卷: {
-    coin: 27,
+    coin: 41,
     cook: 6,
     sell: 3,
     use: {
@@ -61,7 +61,7 @@ const dishes = {
     }
   },
   蛋羹: {
-    coin: 65,
+    coin: 98,
     cook: 12,
     sell: 5,
     use: {
@@ -70,7 +70,7 @@ const dishes = {
     }
   },
   魚湯: {
-    coin: 264,
+    coin: 188,
     cook: 25,
     sell: 12,
     use: {
@@ -88,7 +88,7 @@ const dishes = {
     }
   },
   蟹粥: {
-    coin: 150,
+    coin: 225,
     cook: 20,
     sell: 10,
     use: {
@@ -97,7 +97,7 @@ const dishes = {
     }
   },
   白扒四寶: {
-    coin: 497,
+    coin: 355,
     cook: 12,
     sell: 5,
     use: {
@@ -107,7 +107,7 @@ const dishes = {
     }
   },
   松鼠: {
-    coin: 434,
+    coin: 310,
     cook: 20,
     sell: 15,
     use: {
@@ -116,7 +116,7 @@ const dishes = {
     }
   },
   蝦餃: {
-    coin: 260,
+    coin: 390,
     cook: 12,
     sell: 6,
     use: {
@@ -125,12 +125,34 @@ const dishes = {
       rice: 2
     }
   },
+  佛跳牆: {
+    coin: 870,
+    cook: 20,
+    sell: 10,
+    use: {
+      vegetable: 2,
+      meat: 2,
+      egg: 2,
+      fish: 2
+    }
+  },
+  九龍: {
+    coin: 780,
+    cook: 12,
+    sell: 6,
+    use: {
+      vegetable: 2,
+      meat: 2,
+      rice: 2,
+      egg: 2,
+    }
+  }
 }
 
 const constraints = {
-  prepare: lessEq(5),
-  cook: lessEq(5),
-  sell: lessEq(3),
+  prepare: lessEq(6),
+  cook: lessEq(6),
+  sell: lessEq(4),
 };
 
 for (const key in sources) {

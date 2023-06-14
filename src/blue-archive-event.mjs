@@ -1,10 +1,10 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
 const constraints = {
-  p1: greaterEq(600+1500+360+600 - 1200),
+  p1: greaterEq(600+1500+360+600 - 2419),
   p2: greaterEq(1200+2500+1400 - 5020),
-  p3: greaterEq(450+600+750+750+750+750 - 2697),
-  p4: greaterEq(10000 - 8039)
+  p3: greaterEq(450+600+750+750+750+750 - 3887),
+  p4: greaterEq(10000 - 8723)
 };
 
 const variables = {

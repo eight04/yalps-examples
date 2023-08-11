@@ -1,46 +1,44 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const specialStage = {
-  p1: 40,
-  p2: 35,
-  p3: 30,
-  p4: 120
+const dailyGain = {
+  p1: 0,
+  p2: 0,
+  p3: 0,
+  p4: 40+40+40+50+50+40+50+50
 };
 
-const specialEachDay = 8;
-const daysLeft = 10;
+const dailyMultiplier = 1;
+const daysLeft = 0;
 
 const constraints = {
   p1: greaterEq(
     50*25
-    + 400+200*10+100*40+20*200
-    + 50*8+35*14+25*29+10*72
-    + 50*7+35*12+25*24+10*60
+    + 300+1500+2800+3000
+    + 75*7+50*12+35*24+15*60
     + 2000
-    - 6298
-    - specialStage.p1 * specialEachDay * daysLeft
+    - 1688
+    - dailyGain.p1 * dailyMultiplier * daysLeft
 ),
   p2: greaterEq(
     50*20
-    + 40*25+30*50+25*120+8*240
-    + 20*20+15*40+12*100+4*200
-    + 20*20+15*40+12*100+4*200
-    + 1500
-    - 5181
-    - specialStage.p2 * specialEachDay * daysLeft
+    + 45*20+32*40+24*100+8*200
+    + 2000
+    - 1202
+    - dailyGain.p2 * dailyMultiplier * daysLeft
   ),
   p3: greaterEq(
-    100*5+40*25+20*100+5*500
-    + 4*150+60*12+30*30+15*60
-    + 12*25+8*50
-    + 8*50
-    - 4505
-    - specialStage.p3 * specialEachDay * daysLeft
+    1000
+    + 100*5+40*25
+    + 150*3+60*10+30*25+15*50
+    + 150*3+60*10+30*25+15*50
+    + 500
+    - 1030
+    - dailyGain.p3 * dailyMultiplier * daysLeft
   ),
   p4: greaterEq(
-    10000
-    - 9179
-    - specialStage.p4 * specialEachDay * daysLeft
+    15000
+    - 1514
+    - dailyGain.p4 * dailyMultiplier * daysLeft
   )
 };
 

@@ -13,53 +13,53 @@ const dailyConstraint = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2023-09-05T09:59");
+const endDate = new Date("2023-09-19T09:59");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 11490,
-  p2: 7439,
-  p3: 8565,
+  p1: 1446,
+  p2: 1209,
+  p3: 1098,
+  p4: 2429
 }
 
 const shop = {
-  p1:
-    25*50
-    + 100*3+40*10+20*25+5*50
-    + 500+100*10+25*40+10*200
-    + 50*7+35*12+25*24+10*60
-    + 50*7+35*12+25*24+10*60
-    + 2000,
+  p1: 10*40+30*15+20*30+10*60,
   p2: (
-    50*25
-    + 100*3+40*10+20*2+5*50
-    + 20*20+15*40+12*100+4*200
-    + 20*20+15*40+12*100+4*200
+    35*20+30*40+25*100+7*200
   ),
   p3: (
-    50*25
-    + 100*3+40*10+20*25+5*50
-    + 100*5+40*25+20*100+5*500
+    5*150+60*15+30*50+15*150 +
+    5*150+60*15+30*50+15*150
   ),
+  p4: (
+    15000
+  )
 }
 
 const stages = {
-  controlAlpha: {
+  s9: {
     cost: 20,
     p1: 40+48,
+    p4: 8+10
   },
-  recordDelta: {
+  s10: {
     cost: 20,
-    p1: 5+6,
-    p2: 5+6,
-    p3: 30+36
+    p2: 32+39,
+    p4: 18
   },
-  recordBeta: {
+  s11: {
     cost: 20,
-    p1: 5+6,
-    p2: 30+36,
-    p3: 5+6
+    p3: 27+33,
+    p4: 18
   },
+  s12: {
+    cost: 20,
+    p1: 6+8,
+    p2: 6+8,
+    p3: 6+8,
+    p4: 32+39
+  }
 };
 
 console.log(`daysLeft: ${daysLeft}`);
@@ -95,14 +95,14 @@ function start({daysLeft}) {
         - (dailyGain.p3 || 0) * dailyMultiplier * daysLeft
       )
     ),
-    // p4: greaterEq(
-    //   Math.max(
-    //     dailyConstraint.p4 * daysLeft || 0,
-    //     shop.p4
-    //     - current.p4
-    //     - (dailyGain.p4 || 0) * dailyMultiplier * daysLeft
-    //   )
-    // )
+    p4: greaterEq(
+      Math.max(
+        dailyConstraint.p4 * daysLeft || 0,
+        shop.p4
+        - current.p4
+        - (dailyGain.p4 || 0) * dailyMultiplier * daysLeft
+      )
+    )
   };
   console.log(constraints)
 

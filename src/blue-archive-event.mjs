@@ -17,10 +17,10 @@ const endDate = new Date("2023-09-19T09:59");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 1446,
-  p2: 1209,
-  p3: 1098,
-  p4: 2429
+  p1: 3238,
+  p2: 5770,
+  p3: 10750,
+  p4: 14577
 }
 
 const shop = {

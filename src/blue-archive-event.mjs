@@ -1,6 +1,6 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const shopApMultiplier = 4;
+const apFromShopTimes = 1;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
   cost: (
@@ -8,7 +8,7 @@ const dailyGain = {
     150+
     200/7+
     25.15*24 +
-    90*shopApMultiplier +
+    90*apFromShopTimes +
     - 20*3 - 15*6
   )
 };
@@ -22,28 +22,26 @@ const dailyConstraint = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2023-10-10T09:59");
+const endDate = new Date("2023-10-31T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 1587,
-  p2: 1583,
+  p1: 1933,
+  p2: 1946,
   p3: 0,
-  p4: 2456
+  p4: 461
 }
 
 const shop = {
   p1: (
-    3*10+18*30+12*100+4*300+
-    45*5+22*15+12*50+6*200+
-    45*5+22*15+12*50+6*200+
-    1000+2000+2000
+    8*10+6*30+4*100+1*300+
+    70*5+35*15+20*50+10*200+
+    500*2+1*2000
   ),
   p2: (
-    50*5+38*15+25*50+15*200+
-    45*5+22*15+12*50+6*200+
-    45*5+22*15+12*50+6*200+
-    500*2+2000
+    25*5+20*15+15*50+10*200+
+    25*5+20*15+15*50+10*200+
+    1000
   ),
   p3: (
     0
@@ -56,23 +54,23 @@ const shop = {
 const stages = {
   s9: {
     cost: 20,
-    p1: 6+8,
-    p2: 6+8,
-    p4: 21+26
+    p1: 4+4,
+    p2: 4+4,
+    p4: 28+28
   },
   s10: {
     cost: 20,
-    p1: 21+26,
-    p4: 12+15
+    p1: 32+32,
+    p4: 4+4
   },
   s11: {
     cost: 20,
-    p2: 21+27,
-    p4: 12+15
+    p2: 32+32,
+    p4: 4+4
   },
   s12: {
     cost: 20,
-    p4: 30+36
+    p4: 36+36
   }
 };
 
@@ -118,7 +116,7 @@ function start({daysLeft, goal}) {
       )
     ),
     cost: lessEq(
-      dailyGain.cost * dailyMultiplier * daysLeft
+      dailyGain.cost * dailyMultiplier * (daysLeft + 1)
     ),
   };
   console.log(constraints)

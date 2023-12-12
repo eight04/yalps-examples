@@ -27,8 +27,8 @@ const endDate = new Date("2023-12-12T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 6684,
-  p2: 5545,
+  p1: 9436,
+  p2: 10086,
   p3: 0,
   p4: 15451
 }

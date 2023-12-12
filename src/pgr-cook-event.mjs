@@ -10,11 +10,11 @@ const sources = {
 };
 
 const currentSources = {
-  fruit: 261,
-  egg: 362,
-  drink: 16,
-  rice: 16,
-  spice: 497
+  fruit: 300,
+  egg: 373,
+  drink: 350,
+  rice: 84,
+  spice: 337
 };
 
 const dishes = {
@@ -98,7 +98,7 @@ const dishes = {
     coin: 75,
     cook: 8,
     sell: 6 + 40/60,
-    current: 834,
+    current: 832,
     use: {
       egg: 1,
       drink: 2
@@ -108,7 +108,7 @@ const dishes = {
     coin: 173/1.2,
     cook: 16,
     sell: 10,
-    current: 89,
+    current: 9,
     use: {
       fruit: 2,
       rice: 1,
@@ -130,28 +130,65 @@ const dishes = {
     coin: 159/1.2,
     cook: 13 + 20/60,
     sell: 10,
-    current: 305,
+    current: 414,
     use: {
       drink: 2,
       rice: 1,
       spice: 1
     }
   },
+  楓糖鬆餅: {
+    coin: 150,
+    cook: 16,
+    sell: 10,
+    current: 8,
+    use: {
+      egg: 3,
+      rice: 1,
+      spice: 1
+    }
+  },
+  甜蜜暴擊泡芙: {
+    coin: 188,
+    cook: 12,
+    sell: 10,
+    current: 126,
+    use: {
+      fruit: 2,
+      egg: 1,
+      drink: 1,
+      spice: 1,
+    }
+  },
+  陽光莓莓鬆餅: {
+    coin: 200,
+    cook: 13 + 20/60,
+    sell: 11,
+    current: 0,
+    use: {
+      fruit: 1,
+      egg: 2,
+      rice: 1,
+      spice: 1,
+    }
+  }
 }
 
 const constraints = {
-  prepare: lessEq(4),
-  cook: lessEq(4),
+  prepare: lessEq(5),
+  cook: lessEq(5),
   sell: lessEq(3),
 };
 
 const hot = [
+  "陽光莓莓鬆餅",
   "芒果綿綿冰",
-  "美式咖啡",
-  "冰牛奶",
+  "澳瑞白",
+  "港式奶茶",
+  "西瓜汁"
 ];
 
-const hotMultiplier = 1.2;
+const hotMultiplier = 1.25;
 
 for (const key in sources) {
   sources[key] += currentSources[key] / (24 * 60);

@@ -1,5 +1,8 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
+const EVENT_END = new Date("2023-12-29T23:59:59+08:00");
+const MINUTES_LEFT = Math.floor((EVENT_END - new Date()) / 1000 / 60);
+
 const sources = {
   // minutes required by each sources
   fruit: 4,
@@ -10,11 +13,11 @@ const sources = {
 };
 
 const currentSources = {
-  fruit: 300,
-  egg: 373,
-  drink: 350,
-  rice: 84,
-  spice: 337
+  fruit: 146,
+  egg: 634,
+  drink: 197,
+  rice: 395,
+  spice: 152
 };
 
 const dishes = {
@@ -152,7 +155,7 @@ const dishes = {
     coin: 188,
     cook: 12,
     sell: 10,
-    current: 126,
+    current: 242,
     use: {
       fruit: 2,
       egg: 1,
@@ -164,45 +167,77 @@ const dishes = {
     coin: 200,
     cook: 13 + 20/60,
     sell: 11,
-    current: 0,
+    current: 188,
     use: {
       fruit: 1,
       egg: 2,
       rice: 1,
       spice: 1,
     }
+  },
+  鯊碧汽水: {
+    coin: 195,
+    cook: 15,
+    sell: 10,
+    current: 0,
+    use: {
+      drink: 4,
+      spice: 1,
+    }
+  },
+  草莓百匯: {
+    coin: 282/1.25,
+    cook: 12 + 1/2,
+    sell: 10,
+    current: 159,
+    use: {
+      fruit: 1,
+      egg: 1,
+      rice: 2,
+      spice: 1,
+    }
+  },
+  豪華百匯杯: {
+    coin: 280,
+    cook: 12 + 1/2,
+    sell: 10,
+    current: 175,
+    use: {
+      fruit: 2,
+      egg: 2,
+      drink: 1,
+      spice: 1,
+    }
   }
 }
 
 const constraints = {
-  prepare: lessEq(5),
-  cook: lessEq(5),
-  sell: lessEq(3),
+  prepare: lessEq(6),
+  cook: lessEq(6),
+  sell: lessEq(4),
 };
 
 const hot = [
-  "陽光莓莓鬆餅",
+  "鯊碧汽水",
+  "楓糖鬆餅",
   "芒果綿綿冰",
-  "澳瑞白",
-  "港式奶茶",
-  "西瓜汁"
+  "美式咖啡",
+  "綠豆沙",
+  "冰牛奶",
+  "檸七",
 ];
 
 const hotMultiplier = 1.25;
-
-for (const key in sources) {
-  sources[key] += currentSources[key] / (24 * 60);
-}
 
 for (const key of hot) {
   dishes[key].coin = Math.ceil(dishes[key].coin * hotMultiplier);
 }
 
 for (const key in sources) {
-  constraints[key] = greaterEq(0);
+  constraints[key] = greaterEq(-(currentSources[key] / MINUTES_LEFT));
 }
 for (const key in dishes) {
-  constraints[key] = greaterEq(0);
+  constraints[key] = greaterEq(-(dishes[key].current / MINUTES_LEFT));
 }
 
 const variables = {};
@@ -215,7 +250,7 @@ for (const [key, value] of Object.entries(sources)) {
 for (const [key, value] of Object.entries(dishes)) {
   variables[key] = {
     cook: 1,
-    [key]: 1 / value.cook + value.current / (24 * 60),
+    [key]: 1 / value.cook,
   };
   for (const [k, v] of Object.entries(value.use)) {
     variables[key][k] = -v / value.cook;

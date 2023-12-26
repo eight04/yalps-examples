@@ -13,11 +13,11 @@ const sources = {
 };
 
 const currentSources = {
-  fruit: 146,
-  egg: 634,
-  drink: 197,
-  rice: 395,
-  spice: 152
+  fruit: 231,
+  egg: 679,
+  drink: 234,
+  rice: 399,
+  spice: 320
 };
 
 const dishes = {
@@ -179,7 +179,7 @@ const dishes = {
     coin: 195,
     cook: 15,
     sell: 10,
-    current: 0,
+    current: 78,
     use: {
       drink: 4,
       spice: 1,
@@ -189,7 +189,7 @@ const dishes = {
     coin: 282/1.25,
     cook: 12 + 1/2,
     sell: 10,
-    current: 159,
+    current: 161,
     use: {
       fruit: 1,
       egg: 1,
@@ -201,7 +201,7 @@ const dishes = {
     coin: 280,
     cook: 12 + 1/2,
     sell: 10,
-    current: 175,
+    current: 189,
     use: {
       fruit: 2,
       egg: 2,
@@ -218,13 +218,13 @@ const constraints = {
 };
 
 const hot = [
-  "鯊碧汽水",
-  "楓糖鬆餅",
-  "芒果綿綿冰",
-  "美式咖啡",
-  "綠豆沙",
-  "冰牛奶",
-  "檸七",
+  "草莓百匯",
+  "陽光莓莓鬆餅",
+  "抹茶紅豆冰",
+  "澳瑞白",
+  "水果豆花",
+  "港式奶茶",
+  "西瓜汁",
 ];
 
 const hotMultiplier = 1.25;

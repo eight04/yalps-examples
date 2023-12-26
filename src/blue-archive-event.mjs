@@ -1,6 +1,8 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const apFromShopTimes = 1;
+const apFromShop = 90 * 4;
+const apFromDiamonds = 0;
+const apToSchoolExchange = 15 * 3;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
   cost: (
@@ -8,9 +10,10 @@ const dailyGain = {
     150+
     200/7+
     25.15*24 +
-    90*apFromShopTimes +
+    apFromDiamonds +
+    apFromShop +
     - 20*3 // hard main
-    - 15*6 // 學園交流會
+    - apToSchoolExchange // 學園交流會
   )
 };
 
@@ -23,66 +26,129 @@ const dailyConstraint = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2023-12-12T09:59+08:00");
+const endDate = new Date("2024-01-09T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 9436,
-  p2: 10086,
+  p1: 0,
+  p2: 0,
   p3: 0,
-  p4: 15451
+  p4: 0
 }
 
 const shop = {
   p1: (
-    15*30+10*100+3*300+
-    70*5+35*15+20*50+10*200+
-    10*200+10*200+300+
-    1000
+    0
   ),
   p2: (
-    12*200+
-    70*5+35*15+20*50+10*200+
-    10*200+10*200+300+
     1000
   ),
   p3: (
-    0
+    300*7 +
+    1000
   ),
   p4: (
-    0
+    30*50+15*100+
+    15*100+
+    1000
   )
 }
 
+const bonus = {
+  p1: 25+15+15+15+25,
+  p2: 25+15+15+15+15+15,
+  p3: 15+15+15+15+25+15,
+  p4: 15+15+15   +15
+};
+
+console.log("bonus:", bonus);
+
 const stages = {
+  s1: {
+    cost: 10,
+    p1: 6,
+    p2: 6,
+    p3: 6,
+  },
+  s2: {
+    cost: 10,
+    p1: 6,
+    p3: 6,
+    p4: 6
+  },
+  s3: {
+    cost: 10,
+    p1: 6,
+    p2: 6,
+    p4: 6,
+  },
+  s4: {
+    cost: 10,
+    p1: 12,
+    p2: 2,
+    p3: 2,
+    p4: 2,
+  },
+  s5: {
+    cost: 15,
+    p1: 9,
+    p2: 12,
+    p3: 6,
+  },
+  s6: {
+    cost: 15,
+    p1: 9,
+    p3: 12,
+    p4: 6
+  },
+  s7: {
+    cost: 15,
+    p1: 9,
+    p2: 6,
+    p4: 12,
+  },
+  s8: {
+    cost: 15,
+    p1: 21,
+    p2: 2,
+    p3: 2,
+    p4: 2,
+  },
   s9: {
     cost: 20,
-    p1: 4+4,
-    p2: 4+4,
-    p4: 28+26
+    p2: 36,
   },
   s10: {
     cost: 20,
-    p1: 32+32,
-    p4: 4+4
+    p3: 36,
   },
   s11: {
     cost: 20,
-    p2: 32+31,
-    p4: 4+4
+    p4: 36,
   },
   s12: {
     cost: 20,
-    p4: 36+33
+    p1: 36,
   }
 };
 
+applyBonus(stages, bonus);
+
 console.log(`daysLeft: ${daysLeft}`);
-start({daysLeft, goal: {max: "p4"}});
+start({daysLeft, goal: {max: "p1"}});
 
 // console.log(`daysLeft: ${daysLeft + 1}`);
 // start({daysLeft: daysLeft + 1});
 
+function applyBonus(stages, bonus) {
+  for (const stage of Object.values(stages)) {
+    for (const [key, value] of Object.entries(bonus)) {
+      if (stage[key]) {
+        stage[key] += Math.ceil(stage[key] * (value + 100) / 100);
+      }
+    }
+  }
+}
 
 function start({daysLeft, goal}) {
   const constraints = {

@@ -1,8 +1,9 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const apFromShop = 90 * 4;
-const apFromDiamonds = 0;
-const apToSchoolExchange = 15 * 3;
+const apFromShop = 90 * 3;
+const apFromDiamonds = 120 * 3;
+const apToSchoolExchange = 15 * 0;
+const apToHard = 20 * 0;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
   cost: (
@@ -12,7 +13,7 @@ const dailyGain = {
     25.15*24 +
     apFromDiamonds +
     apFromShop +
-    - 20*3 // hard main
+    - apToHard // hard main
     - apToSchoolExchange // 學園交流會
   )
 };
@@ -26,15 +27,15 @@ const dailyConstraint = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-01-09T09:59+08:00");
+const endDate = new Date("2024-02-15T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 0,
-  p2: 0,
-  p3: 0,
-  p4: 0
-}
+  p1: 2933,
+  p2: 2152,
+  p3: 2102,
+  p4: 2096
+};
 
 const shop = {
   p1: (
@@ -44,21 +45,18 @@ const shop = {
     1000
   ),
   p3: (
-    300*7 +
     1000
   ),
   p4: (
-    30*50+15*100+
-    15*100+
     1000
   )
 }
 
 const bonus = {
-  p1: 25+15+15+15+25,
-  p2: 25+15+15+15+15+15,
-  p3: 15+15+15+15+25+15,
-  p4: 15+15+15   +15
+  p1: 25+25+20+20+ 20+15,
+  p2: 25+15+15+15+ 15+15,
+  p3: 25+15+15+15+ 15+15,
+  p4: 15+15+15+15+ 15+15
 };
 
 console.log("bonus:", bonus);
@@ -66,70 +64,61 @@ console.log("bonus:", bonus);
 const stages = {
   s1: {
     cost: 10,
-    p1: 6,
-    p2: 6,
-    p3: 6,
+    p1: 3,
+    p2: 17,
   },
   s2: {
     cost: 10,
-    p1: 6,
-    p3: 6,
-    p4: 6
+    p1: 3,
+    p3: 17,
   },
   s3: {
     cost: 10,
-    p1: 6,
-    p2: 6,
-    p4: 6,
+    p1: 3,
+    p4: 17,
   },
   s4: {
     cost: 10,
-    p1: 12,
-    p2: 2,
-    p3: 2,
-    p4: 2,
+    p1: 20,
   },
   s5: {
     cost: 15,
-    p1: 9,
-    p2: 12,
-    p3: 6,
+    p1: 6,
+    p2: 24,
   },
   s6: {
     cost: 15,
-    p1: 9,
-    p3: 12,
-    p4: 6
+    p1: 6,
+    p3: 24,
   },
   s7: {
     cost: 15,
-    p1: 9,
-    p2: 6,
-    p4: 12,
+    p1: 6,
+    p4: 24,
   },
   s8: {
     cost: 15,
-    p1: 21,
-    p2: 2,
-    p3: 2,
-    p4: 2,
+    p1: 30,
   },
   s9: {
     cost: 20,
-    p2: 36,
+    p1: 9,
+    p2: 31
   },
   s10: {
     cost: 20,
-    p3: 36,
+    p1: 9,
+    p3: 31
   },
   s11: {
     cost: 20,
-    p4: 36,
+    p1: 9,
+    p4: 31
   },
   s12: {
     cost: 20,
-    p1: 36,
-  }
+    p1: 40,
+  },
 };
 
 applyBonus(stages, bonus);
@@ -144,7 +133,7 @@ function applyBonus(stages, bonus) {
   for (const stage of Object.values(stages)) {
     for (const [key, value] of Object.entries(bonus)) {
       if (stage[key]) {
-        stage[key] += Math.ceil(stage[key] * (value + 100) / 100);
+        stage[key] += Math.ceil(stage[key] * value / 100);
       }
     }
   }
@@ -164,7 +153,7 @@ function start({daysLeft, goal}) {
       Math.max(
         dailyConstraint.p2 * daysLeft || 0,
         shop.p2
-        - current.p2
+        - (current.p2 || 0)
         - (dailyGain.p2 || 0) * dailyMultiplier * daysLeft
       )
     ),
@@ -172,7 +161,7 @@ function start({daysLeft, goal}) {
       Math.max(
         dailyConstraint.p3 * daysLeft || 0,
         shop.p3
-        - current.p3
+        - (current.p3 || 0)
         - (dailyGain.p3 || 0) * dailyMultiplier * daysLeft
       )
     ),
@@ -180,7 +169,7 @@ function start({daysLeft, goal}) {
       Math.max(
         dailyConstraint.p4 * daysLeft || 0,
         shop.p4
-        - current.p4
+        - (current.p4 || 0)
         - (dailyGain.p4 || 0) * dailyMultiplier * daysLeft
       )
     ),
@@ -188,7 +177,8 @@ function start({daysLeft, goal}) {
       dailyGain.cost * dailyMultiplier * (daysLeft + 1)
     ),
   };
-  console.log(constraints)
+  console.log('C', constraints)
+  console.log('stage', stages)
 
   const integers = [
     ...Object.keys(stages)

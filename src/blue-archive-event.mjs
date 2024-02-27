@@ -1,9 +1,9 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const apFromShop = 90 * 3;
-const apFromDiamonds = 120 * 3;
-const apToSchoolExchange = 15 * 0;
-const apToHard = 20 * 0;
+const apFromShop = 90 * 0;
+const apFromDiamonds = 120 * 0;
+const apToSchoolExchange = 15 * 3;
+const apToHard = 20 * 3;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
   cost: (
@@ -27,14 +27,14 @@ const dailyConstraint = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-02-15T09:59+08:00");
+const endDate = new Date("2024-03-12T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 2933,
-  p2: 2152,
-  p3: 2102,
-  p4: 2096
+  p1: 2151,
+  p2: 1496,
+  p3: 1479,
+  p4: 0
 };
 
 const shop = {
@@ -42,82 +42,90 @@ const shop = {
     0
   ),
   p2: (
-    1000
+    3*300+10*200+1000+300
   ),
   p3: (
-    1000
+    12*200+10*200+1000+300
   ),
   p4: (
-    1000
+    0
   )
 }
 
 const bonus = {
-  p1: 25+25+20+20+ 20+15,
-  p2: 25+15+15+15+ 15+15,
-  p3: 25+15+15+15+ 15+15,
-  p4: 15+15+15+15+ 15+15
+  p1: 15*4+15*2,
+  p2: 20+15+15+30,
+  p3: 20+15*3+30,
+  p4: 0,
 };
 
 console.log("bonus:", bonus);
 
 const stages = {
+  t1: {
+    cost: 0,
+    p2: -5,
+    p3: 1
+  },
   s1: {
     cost: 10,
-    p1: 3,
-    p2: 17,
+    p1: 10,
+    p2: 3,
+    p3: 3,
   },
   s2: {
     cost: 10,
-    p1: 3,
-    p3: 17,
+    p2: 13,
+    p3: 3,
   },
   s3: {
     cost: 10,
-    p1: 3,
-    p4: 17,
+    p2: 3,
+    p3: 13,
   },
   s4: {
     cost: 10,
-    p1: 20,
+    p1: 16,
   },
   s5: {
     cost: 15,
-    p1: 6,
-    p2: 24,
+    p1: 16,
+    p2: 4,
+    p3: 4,
   },
   s6: {
     cost: 15,
-    p1: 6,
-    p3: 24,
+    p2: 20,
+    p3: 4,
   },
   s7: {
     cost: 15,
-    p1: 6,
-    p4: 24,
+    p2: 4,
+    p3: 20,
   },
   s8: {
     cost: 15,
-    p1: 30,
+    p1: 24,
   },
   s9: {
     cost: 20,
-    p1: 9,
-    p2: 31
+    p1: 24,
+    p2: 4,
+    p3: 4,
   },
   s10: {
     cost: 20,
-    p1: 9,
-    p3: 31
+    p1: 4,
+    p2: 28
   },
   s11: {
     cost: 20,
-    p1: 9,
-    p4: 31
+    p1: 4,
+    p3: 28,
   },
   s12: {
     cost: 20,
-    p1: 40,
+    p1: 32,
   },
 };
 

@@ -186,20 +186,21 @@ function start({daysLeft, goal}) {
       dailyGain.cost * dailyMultiplier * (daysLeft + 1)
     ),
   };
-  console.log('C', constraints)
-  console.log('stage', stages)
 
   const integers = [
-    ...Object.keys(stages)
+    // https://github.com/Ivordir/YALPS/issues/3
+    // ...Object.keys(stages)
   ];
 
-  const result = solve({
+  const model = {
     direction: goal.max ? "maximize" : "minimize",
     objective: goal.max || goal.min || "cost",
     constraints,
     variables: stages,
     integers,
-  });
+  };
+  console.log(model)
+  const result = solve(model);
 
   console.log(result);
 

@@ -6,7 +6,7 @@ const apToSchoolExchange = 15 * 3;
 const apToHard = 20 * 3;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
-  cost: (
+  cost: Math.floor(
     24*60/6+
     150+
     200/7+
@@ -31,10 +31,10 @@ const endDate = new Date("2024-03-12T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 2151,
+  p1: 7483,
   p2: 1496,
   p3: 1479,
-  p4: 0
+  p4: 1
 };
 
 const shop = {
@@ -62,11 +62,11 @@ const bonus = {
 console.log("bonus:", bonus);
 
 const stages = {
-  t1: {
-    cost: 0,
-    p2: -5,
-    p3: 1
-  },
+  // t1: {
+  //   cost: 0,
+  //   p2: -5,
+  //   p3: 1
+  // },
   s1: {
     cost: 10,
     p1: 10,
@@ -138,7 +138,8 @@ start({daysLeft, goal: {max: "p1"}});
 // start({daysLeft: daysLeft + 1});
 
 function applyBonus(stages, bonus) {
-  for (const stage of Object.values(stages)) {
+  for (const [stageName, stage] of Object.entries(stages)) {
+    if (!stageName.startsWith("s")) continue;
     for (const [key, value] of Object.entries(bonus)) {
       if (stage[key]) {
         stage[key] += Math.ceil(stage[key] * value / 100);

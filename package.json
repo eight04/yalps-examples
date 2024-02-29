@@ -8,6 +8,6 @@
   "license": "Unlicense",
   "files": [],
   "dependencies": {
-    "yalps": "^0.4.2"
+    "yalps": "^0.5.5"
   }
 }

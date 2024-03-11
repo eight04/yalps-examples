@@ -31,9 +31,9 @@ const endDate = new Date("2024-03-12T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 7483,
-  p2: 1496,
-  p3: 1479,
+  p1: 8154,
+  p2: 3906,
+  p3: 4728,
   p4: 1
 };
 
@@ -62,11 +62,11 @@ const bonus = {
 console.log("bonus:", bonus);
 
 const stages = {
-  // t1: {
-  //   cost: 0,
-  //   p2: -5,
-  //   p3: 1
-  // },
+  t1: {
+    cost: 0,
+    p2: -5,
+    p3: 1
+  },
   s1: {
     cost: 10,
     p1: 10,

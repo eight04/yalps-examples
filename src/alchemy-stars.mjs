@@ -1,23 +1,26 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
 // 結論︰
-// 紫屬性材料 - 合成 > 主線 >>> 黑市
-// 藍屬性材料 - 黑市 > 合成
-// 綠屬性材料 - 8折黑市 > 合成
-// 白屬性材料 - 靈質副產物  (黑市5折可買，用來合成)
-// 經驗 - 黑市 > 經驗本
+// 紫屬性材料: 黑市 > 買藍色合成 > 主線
+// 藍屬性材料: 黑市 > 合成 > 主線
+// 綠屬性材料: 白色合成 > 6折黑市 > 主線
+// 白屬性材料: 靈質副產物 | 黑市4折可買
+// 經驗: 黑市 > 經驗本
+
+const priceOff = 0.4;
 
 const soldOut = [
   "exp",
   "blueElement",
   "greenElement",
-  // "whiteElement"
+  "purpleElement",
+  "whiteElement"
 ];
 
 const constraints = {
-  // https://nga.178.com/read.php?tid=27395803&rand=903
-  exp: {min: 145250},
-  coin: {min: 1108800},
+  // https://nga.178.com/read.php?tid=37083312
+  exp: {min: 145250 + 1044550},
+  coin: {min: 1308800 + 754460},
   spirit: {min: 6500},
   greenElement: {min: 50},
   blueElement: {min: 50},
@@ -79,7 +82,7 @@ const stages = {
     ap: 30
   },
   qCoin: {
-    coin: 90000,
+    coin: (93000+55000*3)/3,
     ap: 30
   },
   qEquipment: {
@@ -93,7 +96,7 @@ const stages = {
   },
   tPurpleElement: {
     purpleElement: 1,
-    blueElemnt: -4,
+    blueElement: -4,
   },
   tBlueElement: {
     blueElement: 1,
@@ -109,7 +112,6 @@ for (const item of soldOut) {
   delete stages[`s${item[0].toUpperCase()}${item.slice(1)}`];
 }
 
-const priceOff = 0.5;
 for (const key in stages) {
   if (key.startsWith("s")) {
     stages[key].coin *= priceOff;
@@ -130,4 +132,17 @@ function start({daysLeft, goal}) {
 
   console.log(result);
 
+  const sum = {};
+  for (const [key, value] of result.variables) {
+    for (const p in stages[key]) {
+      sum[p] = (sum[p] || 0) + value * stages[key][p];
+    }
+  }
+  for (const key in sum) {
+    if (sum[key] < 0) {
+      throw new Error(`sum[${key}] = ${sum[key]} < 0`);
+    }
+    sum[key] = Math.round(sum[key]);
+  }
+  // console.log(sum)
 }

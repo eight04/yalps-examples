@@ -3,7 +3,7 @@ import {solve, greaterEq, lessEq} from "yalps";
 const apFromShop = 90 * 0;
 const apFromDiamonds = 120 * 0;
 const apToSchoolExchange = 15 * 3;
-const apToHard = 20 * 3;
+const apToHard = 20 * 3 * 4;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
   cost: Math.floor(
@@ -27,105 +27,96 @@ const dailyConstraint = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-03-12T09:59+08:00");
+const endDate = new Date("2024-03-21T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 const current = {
-  p1: 8154,
-  p2: 3906,
-  p3: 4728,
-  p4: 1
+  p1: 4538,
+  p2: 1730,
+  p3: 1533,
+  p4: 1403
 };
 
 const shop = {
   p1: (
-    0
+    15000
   ),
   p2: (
-    3*300+10*200+1000+300
+    50*25+24*20+10*60+1000+600
   ),
   p3: (
-    12*200+10*200+1000+300
+    25*100+7*200+1000+600
   ),
   p4: (
-    0
+    50*16+15*50+1000+600
   )
 }
 
 const bonus = {
-  p1: 15*4+15*2,
-  p2: 20+15+15+30,
-  p3: 20+15*3+30,
-  p4: 0,
+  p1: 20*3+40,
+  p2: 60+40,
+  p3: 60+40,
+  p4: 30*3+10,
 };
 
 console.log("bonus:", bonus);
 
 const stages = {
-  t1: {
-    cost: 0,
+  t3: {
     p2: -5,
     p3: 1
   },
+  t4: {
+    p3: -5,
+    p4: 1
+  },
   s1: {
     cost: 10,
-    p1: 10,
-    p2: 3,
-    p3: 3,
+    ...p(4, 6, 2, 0)
   },
   s2: {
     cost: 10,
-    p2: 13,
-    p3: 3,
+    ...p(4, 0, 5, 2)
   },
   s3: {
     cost: 10,
-    p2: 3,
-    p3: 13,
+    ...p(4, 2, 0, 5)
   },
-  s4: {
-    cost: 10,
-    p1: 16,
-  },
+  // s4: {
+  //   cost: 10,
+  //   ...p(16, 1, 1, 1)
+  // },
   s5: {
     cost: 15,
-    p1: 16,
-    p2: 4,
-    p3: 4,
+    ...p(6, 20, 0, 0)
   },
   s6: {
     cost: 15,
-    p2: 20,
-    p3: 4,
+    ...p(6, 0, 17, 0)
   },
   s7: {
     cost: 15,
-    p2: 4,
-    p3: 20,
+    ...p(6, 0, 0, 15)
   },
-  s8: {
-    cost: 15,
-    p1: 24,
-  },
+  // s8: {
+  //   cost: 15,
+  //   ...p(24, 3, 3, 3)
+  // },
   s9: {
     cost: 20,
-    p1: 24,
-    p2: 4,
-    p3: 4,
+    ...p(8, 40, 0, 0)
   },
   s10: {
     cost: 20,
-    p1: 4,
-    p2: 28
+    ...p(8, 0, 32, 0)
   },
   s11: {
     cost: 20,
-    p1: 4,
-    p3: 28,
+    ...p(8, 0, 0, 27)
   },
   s12: {
     cost: 20,
-    p1: 32,
+    ...p(32, 6, 6, 6)
   },
 };
 
@@ -204,4 +195,14 @@ function start({daysLeft, goal}) {
 
   console.log(result);
 
+}
+
+function p(...args) {
+  const o = {};
+  let i = 1;
+  for (const arg of args) {
+    o[`p${i}`] = arg;
+    i++;
+  }
+  return o;
 }

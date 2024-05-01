@@ -2,7 +2,7 @@ import {solve, greaterEq, lessEq} from "yalps";
 
 const apFromShop = 90 * 1;
 const apFromDiamonds = 120 * 0;
-const apToSchoolExchange = 15 * 6;
+const apToSchoolExchange = 15 * 3;
 const apToHard = 20 * 3 * 1;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
@@ -19,108 +19,110 @@ const dailyGain = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-04-16T09:59+08:00");
+const endDate = new Date("2024-05-14T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 // FIXME: we sum dailyConstraint into dailyConstraint * daysLeft
 // which is wrong, the constraint has to be met every day
 const dailyConstraint = {
-  p1: 15000 / daysLeft,
-  p2: 7500 / daysLeft,
-  p3: 7500 / daysLeft,
-  p4: 7500 / daysLeft,
+  p1: 0 / daysLeft,
+  p2: 0 / daysLeft,
+  p3: 0 / daysLeft,
+  p4: 0 / daysLeft,
 };
 
 const current = {
-  p1: 13310,
-  p2: 1121,
-  p3: 1966,
-  p4: 2667
+  p1: 3195,
+  p2: 2493,
+  p3: 2493,
+  p4: 0
 };
 
 const shop = {
   p1: (0
   ),
   p2: ( 0
-    +150*1+75*5+35*20+15*100
-    +15*30+10*100+3*300
-    +300+1000
+    +150+75*5+35*20+15*100
+    +10*10+5*30+3*100+300
+    +10*10+5*30+3*100+300
+    +10*10+5*30+3*100+300
+    +300+2000
   ),
   p3: ( 0
-    +300
+    +12*15+8*50+5*200
+    +12*15+8*50+5*200
+    +12*15+8*50+5*200
+    +300+2000
   ),
   p4: ( 0
-    +1000
-    +5*100+40*25
-    +10*200+20*50+10*200
   )
 }
 
 const bonus = {
-  p1: 15*6,
-  p2: 15*6,
-  p3: 15*5,
-  p4: 25+15*3+30,
+  p1: 50+30+30,
+  p2: 25+45+30,
+  p3: 30+20+25+15,
+  p4: 0,
 };
 
 console.log("bonus:", bonus);
 
 const stages = {
-  t3: {
-    p2: -5,
-    p3: 1
-  },
-  t4: {
-    p3: -5,
-    p4: 1
-  },
-  s1: {
-    cost: 10,
-    ...p(3, 9, 3, 3)
-  },
-  s2: {
-    cost: 10,
-    ...p(3, 3, 9, 3)
-  },
-  s3: {
-    cost: 10,
-    ...p(3, 3, 3, 9)
-  },
-  s4: {
-    cost: 10,
-    ...p(18, 0, 0, 0)
-  },
-  s5: {
-    cost: 15,
-    ...p(4, 18, 5, 0)
-  },
-  s6: {
-    cost: 15,
-    ...p(4, 0, 18, 5)
-  },
-  s7: {
-    cost: 15,
-    ...p(4, 5, 0, 18)
-  },
-  s8: {
-    cost: 15,
-    ...p(27, 0, 0, 0)
-  },
+  // t3: {
+  //   p2: -5,
+  //   p3: 1
+  // },
+  // t4: {
+  //   p3: -5,
+  //   p4: 1
+  // },
+  // s1: {
+  //   cost: 10,
+  //   ...p(3, 9, 3, 3)
+  // },
+  // s2: {
+  //   cost: 10,
+  //   ...p(3, 3, 9, 3)
+  // },
+  // s3: {
+  //   cost: 10,
+  //   ...p(3, 3, 3, 9)
+  // },
+  // s4: {
+  //   cost: 10,
+  //   ...p(18, 0, 0, 0)
+  // },
+  // s5: {
+  //   cost: 15,
+  //   ...p(4, 18, 5, 0)
+  // },
+  // s6: {
+  //   cost: 15,
+  //   ...p(4, 0, 18, 5)
+  // },
+  // s7: {
+  //   cost: 15,
+  //   ...p(4, 5, 0, 18)
+  // },
+  // s8: {
+  //   cost: 15,
+  //   ...p(27, 0, 0, 0)
+  // },
   s9: {
     cost: 20,
-    ...p(6, 30, 0, 0)
+    ...p(28, 4, 4)
   },
   s10: {
     cost: 20,
-    ...p(6, 0, 30, 0)
+    ...p(4, 32, 0)
   },
   s11: {
     cost: 20,
-    ...p(6, 0, 0, 30)
+    ...p(4, 0, 32)
   },
   s12: {
     cost: 20,
-    ...p(36, 0, 0, 0)
+    ...p(36, 0, 0)
   },
 };
 
@@ -135,7 +137,7 @@ function sum(arr) {
 }
 
 console.log(`daysLeft: ${daysLeft}`);
-start({daysLeft, goal: {min: "cost"}});
+start({daysLeft, goal: {max: "p1"}});
 
 // console.log(`daysLeft: ${daysLeft + 1}`);
 // start({daysLeft: daysLeft + 1});
@@ -182,8 +184,11 @@ function start({daysLeft, goal}) {
   console.log(model)
   const result = solve(model);
 
-  console.log(result);
+  if (Object.values(dailyConstraint).some(v => v > 0)) {
+    result.variablesForEachDay = result.variables.map(v => [v[0], v[1] / daysLeft]);
+  }
 
+  console.log(result);
 }
 
 function p(...args) {

@@ -1,6 +1,6 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const apFromShop = 90 * 1;
+const apFromShop = 90 * 4;
 const apFromDiamonds = 120 * 0;
 const apToSchoolExchange = 15 * 3;
 const apToHard = 20 * 3 * 1;
@@ -19,7 +19,7 @@ const dailyGain = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-07-09T09:59+08:00");
+const endDate = new Date("2024-09-03T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 // FIXME: we sum dailyConstraint into dailyConstraint * daysLeft
@@ -32,9 +32,9 @@ const dailyConstraint = {
 };
 
 const current = {
-  p1: 2660,
-  p2: 2807,
-  p3: 2825,
+  p1: 2337,
+  p2: 1729,
+  p3: 1703,
   p4: 0
 };
 
@@ -42,26 +42,27 @@ const shop = {
   p1: (0
   ),
   p2: ( 0
+    +90+95*3+30*12+12*60
     +18*30+12*100+4*300
-    +12*50+6*200
-    +45*5+22*15+12*50+6*200
-    +300+2000
+    +22*15+12*50+6*200
+    +6*200
+    +2000+300
   ),
   p3: ( 0
     +180+95*4+30*15+12*60
     +38*15+25*50+15*200
     +12*50+6*200
-    +12*50+6*200
-    +300+2000
+    +6*200
+    +2000+300
   ),
   p4: ( 0
   )
 }
 
 const bonus = {
-  p1: 15+15+10+15+15,
-  p2: 15*3+10+15*2,
-  p3: 15*2+20+15*2,
+  p1: 25+15+15+15+10+10,
+  p2: 15+15+15+15+15+10,
+  p3: 30+15+15+15+15+10,
   p4: 0,
 };
 
@@ -78,57 +79,62 @@ const stages = {
   },
   s1: {
     cost: 10,
-    ...p(6,6,6,0)
+    ...p(4,6,6)
   },
   s2: {
     cost: 10,
-    ...p(6,9,3,0)
+    ...p(5,6,5)
   },
   s3: {
     cost: 10,
-    ...p(6,3,9,0)
+    ...p(5,5,6)
   },
   s4: {
     cost: 10,
-    ...p(8,4,4,0)
+    ...p(8,4,4)
   },
   s5: {
     cost: 15,
-    ...p(5,11,11,0)
+    ...p(10,7,7)
   },
   s6: {
     cost: 15,
-    ...p(5,17,5,0)
+    ...p(4,16,4)
   },
   s7: {
     cost: 15,
-    ...p(5,5,17,0)
+    ...p(4,4,16)
   },
   s8: {
     cost: 15,
-    ...p(16,4,4,0)
+    ...p(18,3,3)
   },
   s9: {
     cost: 20,
-    ...p(4,16,16,0)
+    ...p(20,6,6)
   },
   s10: {
     cost: 20,
-    ...p(4,32,0,0)
+    ...p(0,32,0)
   },
   s11: {
     cost: 20,
-    ...p(4,0,32,0)
+    ...p(0,0,32)
   },
   s12: {
     cost: 20,
-    ...p(32,0,0,0)
+    ...p(32,0,0)
   },
+  sHard: {
+    cost: 60,
+    hard: 1
+  }
 };
 
 applyBonus(stages, bonus);
 
 for (const key in stages) {
+  if (!stages[key].cost) continue;
   stages[key].length = sum([1, 2, 3, 4].map(i => stages[key][`p${i}`] || 0)) / stages[key].cost;
 }
 
@@ -138,6 +144,7 @@ function sum(arr) {
 
 console.log(`daysLeft: ${daysLeft}`);
 start({daysLeft, goal: {max: "p1"}});
+// start({daysLeft, goal: {max: "hard"}});
 
 // console.log(`daysLeft: ${daysLeft + 1}`);
 // start({daysLeft: daysLeft + 1});
@@ -184,8 +191,12 @@ function start({daysLeft, goal}) {
   console.log(model)
   const result = solve(model);
 
-  if (Object.values(dailyConstraint).some(v => v > 0)) {
-    result.variablesForEachDay = result.variables.map(v => [v[0], v[1] / daysLeft]);
+  // if (Object.values(dailyConstraint).some(v => v > 0)) {
+  //   result.variablesForEachDay = result.variables.map(v => [v[0], v[1] / daysLeft]);
+  // }
+  const hard = result.variables.find(v => v[0] === "sHard")?.[1];
+  if (hard) {
+    result.hardPerDay = hard / daysLeft;
   }
 
   console.log(result);

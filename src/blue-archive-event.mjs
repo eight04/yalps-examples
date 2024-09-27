@@ -1,6 +1,6 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const apFromShop = 90 * 4;
+const apFromShop = 90 * 1;
 const apFromDiamonds = 120 * 0;
 const apToSchoolExchange = 15 * 3;
 const apToHard = 20 * 3 * 1;
@@ -19,22 +19,22 @@ const dailyGain = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-09-03T09:59+08:00");
+const endDate = new Date("2024-10-08T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 // FIXME: we sum dailyConstraint into dailyConstraint * daysLeft
 // which is wrong, the constraint has to be met every day
 const dailyConstraint = {
-  p1: 900 / daysLeft,
+  p1: 0 / daysLeft,
   p2: 0 / daysLeft,
   p3: 0 / daysLeft,
   p4: 0 / daysLeft,
 };
 
 const current = {
-  p1: 2337,
-  p2: 1729,
-  p3: 1703,
+  p1: 2151,
+  p2: 1481,
+  p3: 1480,
   p4: 0
 };
 
@@ -43,15 +43,12 @@ const shop = {
   ),
   p2: ( 0
     +90+95*3+30*12+12*60
-    +18*30+12*100+4*300
-    +22*15+12*50+6*200
+    +12*100+4*300+18*30
     +6*200
     +2000+300
   ),
   p3: ( 0
     +180+95*4+30*15+12*60
-    +38*15+25*50+15*200
-    +12*50+6*200
     +6*200
     +2000+300
   ),
@@ -60,9 +57,9 @@ const shop = {
 }
 
 const bonus = {
-  p1: 25+15+15+15+10+10,
-  p2: 15+15+15+15+15+10,
-  p3: 30+15+15+15+15+10,
+  p1: 15*4+15*2,
+  p2: 15*3+15*2,
+  p3: 15*4+15,
   p4: 0,
 };
 
@@ -79,47 +76,47 @@ const stages = {
   },
   s1: {
     cost: 10,
-    ...p(4,6,6)
+    ...p(10,3,3)
   },
   s2: {
     cost: 10,
-    ...p(5,6,5)
+    ...p(0,13,3)
   },
   s3: {
     cost: 10,
-    ...p(5,5,6)
+    ...p(0,3,13)
   },
   s4: {
     cost: 10,
-    ...p(8,4,4)
+    ...p(16,0,0)
   },
   s5: {
     cost: 15,
-    ...p(10,7,7)
+    ...p(16,4,4)
   },
   s6: {
     cost: 15,
-    ...p(4,16,4)
+    ...p(0,20,4)
   },
   s7: {
     cost: 15,
-    ...p(4,4,16)
+    ...p(0,4,20)
   },
   s8: {
     cost: 15,
-    ...p(18,3,3)
+    ...p(24,0,0)
   },
   s9: {
     cost: 20,
-    ...p(20,6,6)
+    ...p(24,4,4)
   },
   s10: {
     cost: 20,
-    ...p(0,32,0)
+    ...p(4,28,0)
   },
   s11: {
     cost: 20,
-    ...p(0,0,32)
+    ...p(4,0,28)
   },
   s12: {
     cost: 20,

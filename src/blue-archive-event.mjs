@@ -2,7 +2,7 @@ import {solve, greaterEq, lessEq} from "yalps";
 
 const apFromShop = 90 * 1;
 const apFromDiamonds = 120 * 0;
-const apToSchoolExchange = 15 * 3;
+const apToSchoolExchange = 15 * 6;
 const apToHard = 20 * 3 * 1;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
@@ -32,9 +32,9 @@ const dailyConstraint = {
 };
 
 const current = {
-  p1: 2151,
-  p2: 1481,
-  p3: 1480,
+  p1: 1813,
+  p2: 7903,
+  p3: 5234,
   p4: 0
 };
 

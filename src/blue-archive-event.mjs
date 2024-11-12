@@ -1,8 +1,8 @@
 import {solve, greaterEq, lessEq} from "yalps";
 
-const apFromShop = 90 * 1;
+const apFromShop = 90 * 0;
 const apFromDiamonds = 120 * 0;
-const apToSchoolExchange = 15 * 6;
+const apToSchoolExchange = 15 * 3;
 const apToHard = 20 * 3 * 1;
 const dailyGain = {
   // p4: 40+40+40+50+50+40+50+50
@@ -19,7 +19,7 @@ const dailyGain = {
 };
 
 const dailyMultiplier = 1;
-const endDate = new Date("2024-10-08T09:59+08:00");
+const endDate = new Date("2024-11-19T09:59+08:00");
 const daysLeft = Math.floor((endDate - Date.now()) / (1000 * 60 * 60 * 24));
 
 // FIXME: we sum dailyConstraint into dailyConstraint * daysLeft
@@ -32,9 +32,9 @@ const dailyConstraint = {
 };
 
 const current = {
-  p1: 1813,
-  p2: 7903,
-  p3: 5234,
+  p1: 2172,
+  p2: 1488,
+  p3: 1504,
   p4: 0
 };
 
@@ -42,89 +42,90 @@ const shop = {
   p1: (0
   ),
   p2: ( 0
-    +90+95*3+30*12+12*60
-    +12*100+4*300+18*30
-    +6*200
-    +2000+300
+    +3*300
+    +70*5+10*200
+    +1000+300
   ),
   p3: ( 0
-    +180+95*4+30*15+12*60
-    +6*200
-    +2000+300
+    +70*5+10*200
+    +1000+300
   ),
-  p4: ( 0
-  )
+  p4: 4*5+20*2+20
 }
 
 const bonus = {
-  p1: 15*4+15*2,
-  p2: 15*3+15*2,
-  p3: 15*4+15,
+  p1: 25+25+15+15+15+15,
+  p2: 20+20+15+15+20+15,
+  p3: 15+15+15+15+20+15,
   p4: 0,
 };
 
 console.log("bonus:", bonus);
 
 const stages = {
-  t3: {
+  p2toP3: {
     p2: -5,
     p3: 1
   },
-  t4: {
-    p3: -5,
-    p4: 1
-  },
+  // t4: {
+  //   p3: -5,
+  //   p4: 1
+  // },
   s1: {
     cost: 10,
-    ...p(10,3,3)
+    ...p(12,3,3)
   },
   s2: {
     cost: 10,
-    ...p(0,13,3)
+    ...p(0,14,4)
   },
   s3: {
     cost: 10,
-    ...p(0,3,13)
+    ...p(0,4,14)
   },
   s4: {
     cost: 10,
-    ...p(16,0,0)
+    ...p(18,0,0)
   },
   s5: {
     cost: 15,
-    ...p(16,4,4)
+    ...p(19,4,4)
   },
   s6: {
     cost: 15,
-    ...p(0,20,4)
+    ...p(0,23,4)
   },
   s7: {
     cost: 15,
-    ...p(0,4,20)
+    ...p(0,4,23)
   },
   s8: {
     cost: 15,
-    ...p(24,0,0)
+    ...p(27,0,0)
   },
   s9: {
     cost: 20,
-    ...p(24,4,4)
+    ...p(28,4,4)
   },
   s10: {
     cost: 20,
-    ...p(4,28,0)
+    ...p(4,32,0)
   },
   s11: {
     cost: 20,
-    ...p(4,0,28)
+    ...p(4,0,32)
   },
   s12: {
     cost: 20,
-    ...p(32,0,0)
+    ...p(36,0,0)
   },
   sHard: {
     cost: 60,
     hard: 1
+  },
+  p1toP4: {
+    p1: 184-3784,
+    p4: 36
   }
 };
 
@@ -140,8 +141,8 @@ function sum(arr) {
 }
 
 console.log(`daysLeft: ${daysLeft}`);
-start({daysLeft, goal: {max: "p1"}});
-// start({daysLeft, goal: {max: "hard"}});
+// start({daysLeft, goal: {max: "p1"}});
+start({daysLeft, goal: {max: "hard"}});
 
 // console.log(`daysLeft: ${daysLeft + 1}`);
 // start({daysLeft: daysLeft + 1});

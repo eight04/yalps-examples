@@ -1,26 +1,24 @@
 /**
  * This is not a yalps but a gacha simulator for Isekai Mao
  **/
-const COST = 270;
+const COST = 1;
 const MAX_TEST = 100000;
-const IS_DRAGON = true;
-const COUNT_ALL_SR = true;
-const HAVE_PULLED = 1;
-const UNTIL_NEXT_PITY = 119;
-const HAS_ROAD = true;
+const HAVE_PULLED = 0;
+const UNTIL_NEXT_PITY = 30;
+const HAS_ROAD = false;
 
-const PU_RATE = IS_DRAGON ? 1.1 : 1.5;
-const MAX_PITY = IS_DRAGON ? 120 : 80;
+const PU_RATE = 5;
+const MAX_PITY = 30;
 
 const pool = [
   { rate: PU_RATE, gain: 1, resetPity: true, },
-  { rate: 6 - PU_RATE, gain: 1 * COUNT_ALL_SR, },
-  { rate: 0.2, gain: 6 * COUNT_ALL_SR, },
-  { rate: 0.1, cost: -20000, },
-  { rate: 5, cost: -200, },
-  { rate: 8, cost: -150, },
-  { rate: 12, cost: -100, },
-  { rate: 12.1, gain: 1 / 8 * COUNT_ALL_SR, }
+  // { rate: 6 - PU_RATE, gain: 1 * COUNT_ALL_SR, },
+  // { rate: 0.2, gain: 6 * COUNT_ALL_SR, },
+  // { rate: 0.1, cost: -20000, },
+  // { rate: 5, cost: -200, },
+  // { rate: 8, cost: -150, },
+  // { rate: 12, cost: -100, },
+  // { rate: 12.1, gain: 1 / 8 * COUNT_ALL_SR, }
 ];
 
 const PU_ROAD = [
@@ -109,7 +107,7 @@ for (let i = 0; i < MAX_TEST; i++) {
   gacha();
 }
 
-console.log(`stop at first PU, avg ${(pityResult.cost / pityResult.gain).toFixed()} cost per gain`)
+console.log(`stop at first PU, avg ${(pityResult.cost / pityResult.gain).toFixed(2)} cost per gain`)
 for (const [n, {cost, gain, times}] of result) {
   if (times === 0) {
     continue;
